@@ -27,7 +27,10 @@ export const SPOTIFY_CONFIG = {
   CLIENT_SECRET: process.env.REACT_APP_SPOTIFY_CLIENT_SECRET || '879bec48ef484cd1926625b5634cda17',
   
   // Redirect URI (must match what you set in Spotify Dashboard)
-  REDIRECT_URI: process.env.REACT_APP_SPOTIFY_REDIRECT_URI || 'http://localhost:3000',
+  REDIRECT_URI: process.env.REACT_APP_SPOTIFY_REDIRECT_URI || 
+    (process.env.NODE_ENV === 'production' 
+      ? 'https://mixtape-animation-rm1fdigc2-tejasvisois-projects.vercel.app' 
+      : 'http://localhost:3000'),
   
   // Scopes required for playback
   SCOPES: [
