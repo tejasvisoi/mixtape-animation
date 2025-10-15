@@ -2,10 +2,10 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 /**
- * PlaybackControls Component
+ * PlaybackControls Component - Web Cassette Style
  * 
- * Vintage-style playback controls for the tape player.
- * Features tactile buttons with hover effects and vintage styling.
+ * Authentic cassette deck controls inspired by Klevgrand's Web Cassette
+ * Features realistic button styling and vintage aesthetics
  * 
  * Props:
  * @param {boolean} isPlaying - Whether music is currently playing
@@ -27,29 +27,29 @@ const PlaybackControls = ({
   // Button animation variants
   const buttonVariants = {
     hover: { 
-      scale: 1.1,
-      boxShadow: "0 8px 25px rgba(0, 0, 0, 0.2)"
+      scale: 1.05,
+      boxShadow: "0 4px 15px rgba(0, 0, 0, 0.3)"
     },
     tap: { 
-      scale: 0.95 
+      scale: 0.98 
     }
   };
 
   // Play/Pause button specific animation
   const playPauseVariants = {
     playing: {
-      scale: 1.1,
-      boxShadow: "0 0 20px rgba(220, 20, 60, 0.4)"
+      scale: 1.05,
+      boxShadow: "0 0 15px rgba(34, 197, 94, 0.5)"
     },
     paused: {
       scale: 1,
-      boxShadow: "0 4px 16px rgba(0, 0, 0, 0.2)"
+      boxShadow: "0 2px 8px rgba(0, 0, 0, 0.3)"
     }
   };
 
   return (
     <motion.div 
-      className="flex items-center justify-center space-x-6 mt-8"
+      className="flex items-center justify-center space-x-4 mt-6"
       initial={{ y: 30, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ delay: 0.8, duration: 0.6 }}
@@ -58,19 +58,25 @@ const PlaybackControls = ({
       {/* Previous Track Button */}
       <motion.button
         className={`
-          vintage-button w-12 h-12 rounded-full border-2 border-vintage-brown
-          flex items-center justify-center text-vintage-brown
-          ${canGoPrevious ? 'bg-vintage-cream hover:bg-vintage-gold' : 'bg-gray-300 cursor-not-allowed'}
-          shadow-vintage
+          relative w-12 h-12 rounded-lg border-2 border-gray-500
+          flex items-center justify-center text-gray-700
+          ${canGoPrevious ? 'bg-gradient-to-b from-gray-200 to-gray-300 hover:from-gray-100 hover:to-gray-200' : 'bg-gray-400 cursor-not-allowed'}
+          shadow-lg active:shadow-inner
         `}
         variants={buttonVariants}
         whileHover={canGoPrevious ? "hover" : {}}
         whileTap={canGoPrevious ? "tap" : {}}
         onClick={canGoPrevious ? onPrevious : undefined}
         disabled={!canGoPrevious}
+        style={{
+          borderTopColor: '#9ca3af',
+          borderLeftColor: '#9ca3af',
+          borderBottomColor: '#6b7280',
+          borderRightColor: '#6b7280'
+        }}
       >
         <svg 
-          className="w-6 h-6" 
+          className="w-5 h-5" 
           fill="currentColor" 
           viewBox="0 0 20 20"
         >
@@ -78,57 +84,100 @@ const PlaybackControls = ({
         </svg>
       </motion.button>
 
+      {/* Stop Button */}
+      <motion.button
+        className="relative w-12 h-12 rounded-lg border-2 border-gray-500 bg-gradient-to-b from-gray-200 to-gray-300 hover:from-gray-100 hover:to-gray-200 flex items-center justify-center text-gray-700 shadow-lg active:shadow-inner"
+        variants={buttonVariants}
+        whileHover="hover"
+        whileTap="tap"
+        style={{
+          borderTopColor: '#9ca3af',
+          borderLeftColor: '#9ca3af',
+          borderBottomColor: '#6b7280',
+          borderRightColor: '#6b7280'
+        }}
+      >
+        <div className="w-4 h-4 bg-gray-700 rounded"></div>
+      </motion.button>
+
       {/* Play/Pause Button */}
       <motion.button
         className={`
-          vintage-button w-16 h-16 rounded-full border-2 border-vintage-red
+          relative w-16 h-16 rounded-lg border-2 border-gray-500
           flex items-center justify-center text-white
-          ${isPlaying ? 'bg-vintage-red glow' : 'bg-vintage-red hover:bg-red-600'}
-          shadow-vintage
+          ${isPlaying ? 'bg-gradient-to-b from-green-400 to-green-500 shadow-green-400/50' : 'bg-gradient-to-b from-green-500 to-green-600 hover:from-green-400 hover:to-green-500'}
+          shadow-lg active:shadow-inner
         `}
         variants={playPauseVariants}
         animate={isPlaying ? "playing" : "paused"}
         whileHover="hover"
         whileTap="tap"
         onClick={onPlayPause}
+        style={{
+          borderTopColor: '#9ca3af',
+          borderLeftColor: '#9ca3af',
+          borderBottomColor: '#6b7280',
+          borderRightColor: '#6b7280'
+        }}
       >
         {isPlaying ? (
           // Pause Icon
-          <svg 
-            className="w-8 h-8" 
-            fill="currentColor" 
-            viewBox="0 0 20 20"
-          >
-            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd"/>
-          </svg>
+          <div className="flex space-x-1">
+            <div className="w-1 h-6 bg-white rounded"></div>
+            <div className="w-1 h-6 bg-white rounded"></div>
+          </div>
         ) : (
           // Play Icon
-          <svg 
-            className="w-8 h-8" 
-            fill="currentColor" 
-            viewBox="0 0 20 20"
-          >
-            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd"/>
-          </svg>
+          <div className="ml-1">
+            <svg 
+              className="w-6 h-6" 
+              fill="currentColor" 
+              viewBox="0 0 20 20"
+            >
+              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd"/>
+            </svg>
+          </div>
         )}
+      </motion.button>
+
+      {/* Record Button */}
+      <motion.button
+        className="relative w-12 h-12 rounded-lg border-2 border-gray-500 bg-gradient-to-b from-red-200 to-red-300 hover:from-red-100 hover:to-red-200 flex items-center justify-center text-red-700 shadow-lg active:shadow-inner"
+        variants={buttonVariants}
+        whileHover="hover"
+        whileTap="tap"
+        style={{
+          borderTopColor: '#9ca3af',
+          borderLeftColor: '#9ca3af',
+          borderBottomColor: '#6b7280',
+          borderRightColor: '#6b7280'
+        }}
+      >
+        <div className="w-4 h-4 bg-red-600 rounded-full"></div>
       </motion.button>
 
       {/* Next Track Button */}
       <motion.button
         className={`
-          vintage-button w-12 h-12 rounded-full border-2 border-vintage-brown
-          flex items-center justify-center text-vintage-brown
-          ${canGoNext ? 'bg-vintage-cream hover:bg-vintage-gold' : 'bg-gray-300 cursor-not-allowed'}
-          shadow-vintage
+          relative w-12 h-12 rounded-lg border-2 border-gray-500
+          flex items-center justify-center text-gray-700
+          ${canGoNext ? 'bg-gradient-to-b from-gray-200 to-gray-300 hover:from-gray-100 hover:to-gray-200' : 'bg-gray-400 cursor-not-allowed'}
+          shadow-lg active:shadow-inner
         `}
         variants={buttonVariants}
         whileHover={canGoNext ? "hover" : {}}
         whileTap={canGoNext ? "tap" : {}}
         onClick={canGoNext ? onNext : undefined}
         disabled={!canGoNext}
+        style={{
+          borderTopColor: '#9ca3af',
+          borderLeftColor: '#9ca3af',
+          borderBottomColor: '#6b7280',
+          borderRightColor: '#6b7280'
+        }}
       >
         <svg 
-          className="w-6 h-6" 
+          className="w-5 h-5" 
           fill="currentColor" 
           viewBox="0 0 20 20"
         >

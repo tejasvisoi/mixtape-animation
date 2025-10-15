@@ -86,7 +86,7 @@ function App() {
   const trackInfo = getCurrentTrackInfo();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-vintage-cream via-vintage-cream to-yellow-50 vintage-texture">
+    <div className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-200">
       
       {/* Header */}
       <motion.header 
@@ -99,7 +99,7 @@ function App() {
           
           {/* App Title */}
           <motion.h1 
-            className="text-3xl font-bold text-vintage-brown font-retro"
+            className="text-3xl font-bold text-gray-800"
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
@@ -110,23 +110,23 @@ function App() {
           <div className="flex space-x-3">
             <AnimatePresence mode="wait">
               {isAuthenticated ? (
-                <motion.button
-                  key="logout"
-                  className="vintage-button bg-vintage-brown text-white px-6 py-2 rounded-full font-retro shadow-vintage"
-                  onClick={handleLogout}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.8 }}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Logout
-                </motion.button>
+                  <motion.button
+                    key="logout"
+                    className="bg-gray-700 text-white px-6 py-2 rounded-lg shadow-lg hover:bg-gray-600 transition-colors"
+                    onClick={handleLogout}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    Logout
+                  </motion.button>
               ) : (
                 <>
                   <motion.button
                     key="demo"
-                    className="vintage-button bg-vintage-blue text-white px-6 py-2 rounded-full font-retro shadow-vintage"
+                    className="bg-blue-600 text-white px-6 py-2 rounded-lg shadow-lg hover:bg-blue-500 transition-colors"
                     onClick={() => setIsDemoMode(true)}
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -138,7 +138,7 @@ function App() {
                   </motion.button>
                   <motion.button
                     key="login"
-                    className="vintage-button bg-vintage-gold text-vintage-brown px-6 py-2 rounded-full font-retro shadow-vintage"
+                    className="bg-green-600 text-white px-6 py-2 rounded-lg shadow-lg hover:bg-green-500 transition-colors"
                     onClick={handleLogin}
                     disabled={isLoading}
                     initial={{ opacity: 0, scale: 0.8 }}
