@@ -130,7 +130,9 @@ const estimateBPM = (track) => {
  * This could be enhanced with Web Audio API for real audio analysis
  */
 export const useAdvancedBeatDetection = (isPlaying) => {
+  // eslint-disable-next-line no-unused-vars
   const [audioContext, setAudioContext] = useState(null);
+  // eslint-disable-next-line no-unused-vars
   const [analyser, setAnalyser] = useState(null);
   const [beatIntensity, setBeatIntensity] = useState(0);
   const animationFrameRef = useRef(null);

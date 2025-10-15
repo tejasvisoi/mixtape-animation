@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { SPOTIFY_CONFIG, SPOTIFY_API, getSpotifyAuthUrl, exchangeCodeForToken, refreshAccessToken } from '../utils/spotifyConfig';
+import { SPOTIFY_CONFIG, SPOTIFY_API, getSpotifyAuthUrl, exchangeCodeForToken } from '../utils/spotifyConfig';
 
 /**
  * Custom Hook for Spotify Integration
@@ -49,21 +49,6 @@ const useSpotify = () => {
         document.body.removeChild(existingScript);
       }
     };
-  }, []);
-
-  // Check for existing authentication on mount
-  useEffect(() => {
-    const checkAuth = async () => {
-      const token = localStorage.getItem('spotify_access_token');
-      const refreshToken = localStorage.getItem('spotify_refresh_token');
-      
-      if (token && refreshToken) {
-        setIsAuthenticated(true);
-        await initializePlayer(token);
-      }
-    };
-    
-    checkAuth();
   }, []);
 
   // Initialize Spotify Player
@@ -122,6 +107,22 @@ const useSpotify = () => {
       console.error('Failed to initialize Spotify player:', err);
       setError('Failed to initialize Spotify player');
     }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Check for existing authentication on mount
+  useEffect(() => {
+    const checkAuth = async () => {
+      const token = localStorage.getItem('spotify_access_token');
+      const refreshToken = localStorage.getItem('spotify_refresh_token');
+      
+      if (token && refreshToken) {
+        setIsAuthenticated(true);
+        await initializePlayer(token);
+      }
+    };
+    
+    checkAuth();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Login function
