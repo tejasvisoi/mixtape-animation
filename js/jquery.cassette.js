@@ -436,22 +436,15 @@
 
 			var posTime	= this.cntTime;
 
+			console.log('_updateStatus called. Current cntTime:', this.cntTime, 'Last action:', this.lastaction, 'Elapsed:', this.elapsed);
+
 			// first stop
 			this._stop( true );
 
 			this._setSidesPosStatus( 'middle' );
 
-			// the current time to play is this.cntTime +/- [this.elapsed]
-			if( this.lastaction === 'forward' ) {
-
-				posTime += this.elapsed;
-
-			}
-			else if( this.lastaction === 'rewind' ) {
-
-				posTime -= this.elapsed;
-
-			}
+			// Don't apply seek offset here since we already updated cntTime in _stop method
+			// The current cntTime should already be the correct position after seeking
 
 			// check if we have more songs to play on the current side..
 			if( posTime >= this._getSide().current.getDuration() ) {
@@ -468,7 +461,9 @@
 			// and from which point in time within the song we will play
 			var data			= this._getSongInfoByTime( posTime );
 
-			// update cntTime
+			console.log('Song info by time:', data);
+
+			// update cntTime (should already be correct from _stop method)
 			this.cntTime		= posTime;
 			// update timeIterator
 			this.timeIterator	= data.iterator;
