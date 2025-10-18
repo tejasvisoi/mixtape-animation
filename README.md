@@ -29,9 +29,13 @@ A beautiful, nostalgic HTML5 cassette player with a modern web interface. This p
 5. mehro - chance with you
 6. John Mayer - Carry Me Away
 
-## 🚀 Live Demo
+## 🚀 Getting Started
 
-Visit the live application: [Your Vercel URL will be here]
+To run the cassette player locally:
+
+1. Clone this repository
+2. Start a local HTTP server (e.g., `python3 -m http.server 8000`)
+3. Open your browser to `http://localhost:8000`
 
 ## 🛠️ Technologies Used
 
