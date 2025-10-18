@@ -507,9 +507,12 @@
 			var _self	= this,
 				action 	= 'forward';
 
+			console.log('Forward button pressed. Current time:', this.cntTime);
+
 			// Allow forward to work even at end position - it will just stay at max
 			// Only prevent forward if we're already at the very end
 			if( this.cntTime >= this._getSide().current.getDuration() ) {
+				console.log('Already at end, cannot forward');
 				return false;
 			}
 
@@ -544,6 +547,7 @@
 			// Update the current time position when stopping from seek operations
 			if( this.isSeeking && this.lastaction ) {
 				var posTime = this.cntTime;
+				console.log('Stopping from seek. Last action:', this.lastaction, 'Current time:', this.cntTime, 'Elapsed:', this.elapsed);
 				
 				if( this.lastaction === 'forward' ) {
 					posTime += this.elapsed;
@@ -556,6 +560,7 @@
 				if( posTime < 0 ) posTime = 0;
 				if( posTime >= this._getSide().current.getDuration() ) posTime = this._getSide().current.getDuration();
 				
+				console.log('Updated position:', posTime);
 				this.cntTime = posTime;
 				this._resetElapsed();
 				
