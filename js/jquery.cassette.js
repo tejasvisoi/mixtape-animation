@@ -481,10 +481,10 @@
 			var _self	= this,
 				action 	= 'rewind';
 
-			if( this._getSide().current.getPositionStatus() === 'start' ) {
-
+			// Allow rewind to work even at start position - it will just stay at 0
+			// Only prevent rewind if we're already at the very beginning (cntTime = 0)
+			if( this.cntTime <= 0 ) {
 				return false;
-				
 			}
 
 			this._updateButtons( action );
@@ -507,10 +507,10 @@
 			var _self	= this,
 				action 	= 'forward';
 
-			if( this._getSide().current.getPositionStatus() === 'end' ) {
-
+			// Allow forward to work even at end position - it will just stay at max
+			// Only prevent forward if we're already at the very end
+			if( this.cntTime >= this._getSide().current.getDuration() ) {
 				return false;
-
 			}
 
 			this._updateButtons( action );
@@ -540,6 +540,28 @@
 			this._stopWheels();
 			this.audio.pause();
 			this._stopTimer();
+			
+			// Update the current time position when stopping from seek operations
+			if( this.isSeeking && this.lastaction ) {
+				var posTime = this.cntTime;
+				
+				if( this.lastaction === 'forward' ) {
+					posTime += this.elapsed;
+				}
+				else if( this.lastaction === 'rewind' ) {
+					posTime -= this.elapsed;
+				}
+				
+				// Ensure position is within bounds
+				if( posTime < 0 ) posTime = 0;
+				if( posTime >= this._getSide().current.getDuration() ) posTime = this._getSide().current.getDuration();
+				
+				this.cntTime = posTime;
+				this._resetElapsed();
+				
+				// Clear the last action so it doesn't interfere with future plays
+				this.lastaction = '';
+			}
 		
 		},
 		_clear				: function() {
@@ -715,7 +737,8 @@
 
 			time += 100;  
 			
-			this.elapsed = Math.floor(time / 20) / 10;  
+			// Increase seek speed to 3x by multiplying elapsed time by 3
+			this.elapsed = (Math.floor(time / 20) / 10) * 3;  
 			
 			if( Math.round( this.elapsed ) == this.elapsed ) { 
 
@@ -743,10 +766,14 @@
 
 			if( posTime >= this._getSide().current.getDuration() || posTime <= 0 ) {
 
-				this._stop();
+				// Update the position before stopping
 				( posTime <= 0) ? this.cntTime = 0 : this.cntTime = posTime;
 				this._resetElapsed();
 				( posTime <= 0) ? this._setSidesPosStatus( 'start' ) : this._setSidesPosStatus( 'end' );
+				
+				// Clear the last action and stop
+				this.lastaction = '';
+				this._stop();
 				return false;
 
 			}
