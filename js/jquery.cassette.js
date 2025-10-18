@@ -443,8 +443,22 @@
 
 			this._setSidesPosStatus( 'middle' );
 
-			// Don't apply seek offset here since we already updated cntTime in _stop method
-			// The current cntTime should already be the correct position after seeking
+			// Check if we were seeking and apply the offset if needed
+			if( this.lastaction === 'forward' ) {
+				posTime += this.elapsed;
+				console.log('Applying forward offset. New posTime:', posTime);
+			}
+			else if( this.lastaction === 'rewind' ) {
+				posTime -= this.elapsed;
+				console.log('Applying rewind offset. New posTime:', posTime);
+			}
+
+			// Clear the last action after using it
+			this.lastaction = '';
+
+			// Ensure position is within bounds
+			if( posTime < 0 ) posTime = 0;
+			if( posTime >= this._getSide().current.getDuration() ) posTime = this._getSide().current.getDuration();
 
 			// check if we have more songs to play on the current side..
 			if( posTime >= this._getSide().current.getDuration() ) {
@@ -463,7 +477,7 @@
 
 			console.log('Song info by time:', data);
 
-			// update cntTime (should already be correct from _stop method)
+			// update cntTime
 			this.cntTime		= posTime;
 			// update timeIterator
 			this.timeIterator	= data.iterator;
@@ -559,8 +573,7 @@
 				this.cntTime = posTime;
 				this._resetElapsed();
 				
-				// Clear the last action so it doesn't interfere with future plays
-				this.lastaction = '';
+				// Don't clear lastaction here - let _updateStatus handle it
 			}
 		
 		},
