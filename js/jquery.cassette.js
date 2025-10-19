@@ -339,8 +339,9 @@
 					_self.$tapeSideA.hide();
 					_self.$tapeSideB.show();
 
-					// update wheels
-					_self.cntTime = _self._getPosTime();
+					// reset position to start of side B
+					_self.cntTime = 0;
+					_self.timeIterator = 0;
 					
 					// update song display
 					_self._updateSongDisplay( null, _self.currentSide );
@@ -365,8 +366,9 @@
 					_self.$tapeSideB.hide();
 					_self.$tapeSideA.show();
 
-					// update wheels
-					_self.cntTime = _self._getPosTime();
+					// reset position to start of side A
+					_self.cntTime = 0;
+					_self.timeIterator = 0;
 					
 					// update song display
 					_self._updateSongDisplay( null, _self.currentSide );
@@ -436,29 +438,22 @@
 
 			var posTime	= this.cntTime;
 
-			console.log('_updateStatus called. Current cntTime:', this.cntTime, 'Last action:', this.lastaction, 'Elapsed:', this.elapsed);
-
 			// first stop
 			this._stop( true );
 
 			this._setSidesPosStatus( 'middle' );
 
-			// Check if we were seeking and apply the offset if needed
+			// the current time to play is this.cntTime +/- [this.elapsed]
 			if( this.lastaction === 'forward' ) {
+
 				posTime += this.elapsed;
-				console.log('Applying forward offset. New posTime:', posTime);
+
 			}
 			else if( this.lastaction === 'rewind' ) {
+
 				posTime -= this.elapsed;
-				console.log('Applying rewind offset. New posTime:', posTime);
+
 			}
-
-			// Clear the last action after using it
-			this.lastaction = '';
-
-			// Ensure position is within bounds
-			if( posTime < 0 ) posTime = 0;
-			if( posTime >= this._getSide().current.getDuration() ) posTime = this._getSide().current.getDuration();
 
 			// check if we have more songs to play on the current side..
 			if( posTime >= this._getSide().current.getDuration() ) {
@@ -475,8 +470,6 @@
 			// and from which point in time within the song we will play
 			var data			= this._getSongInfoByTime( posTime );
 
-			console.log('Song info by time:', data);
-
 			// update cntTime
 			this.cntTime		= posTime;
 			// update timeIterator
@@ -490,10 +483,10 @@
 			var _self	= this,
 				action 	= 'rewind';
 
-			// Allow rewind to work even at start position - it will just stay at 0
-			// Only prevent rewind if we're already at the very beginning (cntTime = 0)
-			if( this.cntTime <= 0 ) {
+			if( this._getSide().current.getPositionStatus() === 'start' ) {
+
 				return false;
+				
 			}
 
 			this._updateButtons( action );
@@ -516,13 +509,10 @@
 			var _self	= this,
 				action 	= 'forward';
 
-			console.log('Forward button pressed. Current time:', this.cntTime);
+			if( this._getSide().current.getPositionStatus() === 'end' ) {
 
-			// Allow forward to work even at end position - it will just stay at max
-			// Only prevent forward if we're already at the very end
-			if( this.cntTime >= this._getSide().current.getDuration() ) {
-				console.log('Already at end, cannot forward');
 				return false;
+
 			}
 
 			this._updateButtons( action );
@@ -556,7 +546,6 @@
 			// Update the current time position when stopping from seek operations
 			if( this.isSeeking && this.lastaction ) {
 				var posTime = this.cntTime;
-				console.log('Stopping from seek. Last action:', this.lastaction, 'Current time:', this.cntTime, 'Elapsed:', this.elapsed);
 				
 				if( this.lastaction === 'forward' ) {
 					posTime += this.elapsed;
@@ -569,11 +558,11 @@
 				if( posTime < 0 ) posTime = 0;
 				if( posTime >= this._getSide().current.getDuration() ) posTime = this._getSide().current.getDuration();
 				
-				console.log('Updated position:', posTime);
 				this.cntTime = posTime;
 				this._resetElapsed();
 				
-				// Don't clear lastaction here - let _updateStatus handle it
+				// Clear the last action so it doesn't interfere with future plays
+				this.lastaction = '';
 			}
 		
 		},
@@ -779,14 +768,10 @@
 
 			if( posTime >= this._getSide().current.getDuration() || posTime <= 0 ) {
 
-				// Update the position before stopping
+				this._stop();
 				( posTime <= 0) ? this.cntTime = 0 : this.cntTime = posTime;
 				this._resetElapsed();
 				( posTime <= 0) ? this._setSidesPosStatus( 'start' ) : this._setSidesPosStatus( 'end' );
-				
-				// Clear the last action and stop
-				this.lastaction = '';
-				this._stop();
 				return false;
 
 			}

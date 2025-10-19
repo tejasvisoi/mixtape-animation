@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Echoes of You - Shiku</title>
+        <title>Old School Cassette Player with HTML5 Audio</title>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
         <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
@@ -30,8 +30,6 @@
 					<span class="no-csstransforms">CSS transforms are not supported in your browser</span>
 					<span class="no-csstransforms3d">CSS 3D transforms are not supported in your browser</span>
 					<span class="no-csstransitions">CSS transitions are not supported in your browser</span>
-					<span class="no-generatedcontent">CSS generated content is not supported in your browser</span>
-					<span class="no-audiosupport">HTML5 audio is not supported in your browser</span>
 					<span class="note-ie">Sorry, only modern browsers.</span>
 				</div>
 				
@@ -61,21 +59,18 @@
 
 		</div><!-- //container -->
 		
-		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 		<!-- KnobKnob by Martin Angelov : https://github.com/martinaglv/KnobKnob -->
 		<script src="js/transform.js"></script>
 		<script src="js/knobKnob.jquery.js"></script>
 
-		<script type="text/javascript" src="js/jquery.cassette.js?v=2.0"></script>
+		<script type="text/javascript" src="js/jquery.cassette.js"></script>
 		<script type="text/javascript">	
 			$(function() {
-				try {
-					$( '#vc-container' ).cassette();
-				} catch(error) {
-					console.log('Cassette player initialization error:', error);
-					$( '#vc-container' ).html('<p>Error loading cassette player. Please refresh the page.</p>');
-				}
-			});
+				
+				$( '#vc-container' ).cassette();
+						
+				});
 		</script>
     </body>
 </html>
