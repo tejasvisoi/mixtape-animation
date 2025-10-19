@@ -277,8 +277,13 @@ See knobKnob.css for the knob style
 
 .vc-volume-wrap:after{
 	content: 'Volume';
-	margin-top: 15px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	margin: 0;
 	display: block;
+	z-index: 10;
 }
 
 /* Text style for controls */
