@@ -25,8 +25,8 @@ A beautiful, nostalgic HTML5 cassette player with a modern web interface. This p
 1. Tokyo Tea Room - Things Are Changing
 2. Si tu vas - Fred Nevche
 3. Kid Francescoli - Les Vitrines
-4. L'Impératrice AGITATIONS TROPICALES
-5. mehro - chance with you
+4. L'Impératrice - Agitations Tropicales
+5. Mehro - Chance with you
 6. John Mayer - Carry Me Away
 
 ## 🚀 Live Demo

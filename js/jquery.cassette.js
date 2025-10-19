@@ -56,8 +56,8 @@
 			'Tokyo Tea Room - Things Are Changing',
 			'Si tu vas - Fred Nevche',
 			'Kid Francescoli - Les Vitrines',
-			'L\'Impératrice  AGITATIONS TROPICALES',
-			'mehro - chance with you',
+			'L\'Impératrice - Agitations Tropicales',
+			'Mehro - Chance with you',
 			'John Mayer - Carry Me Away'
 		],
 		fallbackMessage	: 'HTML5 audio not supported',
