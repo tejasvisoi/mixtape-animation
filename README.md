@@ -31,7 +31,7 @@ A beautiful, nostalgic HTML5 cassette player with a modern web interface. This p
 
 ## 🚀 Live Demo
 
-Visit the live application: [Your Vercel URL will be here]
+Visit the live application: https://tejasvisoi.github.io/shiku
 
 ## 🛠️ Technologies Used
 
@@ -73,14 +73,6 @@ CassettePlayer/
 - **Switch**: Flip cassette to other side
 - **Volume Knob**: Adjust playback volume
 
-## 🎨 Customization
-
-The player can be easily customized by modifying:
-
-- **Songs**: Update the playlist in `js/jquery.cassette.js`
-- **Styling**: Modify colors and fonts in `css/demo.css`
-- **Background**: Replace `images/DSCF1779.JPG` with your own image
-- **Text**: Update the title and subtitle in `index.html`
 
 ## 📱 Browser Support
 
@@ -95,6 +87,4 @@ This project is for personal use. Please respect the copyrights of the included 
 
 ## 🙏 Credits
 
-- Cassette tape PSD by [Mauricio Estrella](http://manicho.deviantart.com/art/Cassette-PSD-File-86548493)
-- KnobKnob plugin by [Martin Angelov](https://github.com/martinaglv/KnobKnob)
 - Original cassette player concept inspired by vintage audio equipment
