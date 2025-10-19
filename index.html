@@ -13,7 +13,7 @@
         <link rel="stylesheet" type="text/css" href="css/demo.css" />
         <link rel="stylesheet" type="text/css" href="css/style.css" />
 		<link rel="stylesheet" type="text/css" href="css/knobKnob.css" />
-        <link href='http://fonts.googleapis.com/css?family=Aldrich' rel='stylesheet' type='text/css' />
+        <link href='https://fonts.googleapis.com/css?family=Aldrich' rel='stylesheet' type='text/css' />
 		<script type="text/javascript" src="js/modernizr.custom.69142.js"></script> 
     </head>
     <body>
@@ -60,7 +60,7 @@
 
 		</div><!-- //container -->
 		
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 		<!-- KnobKnob by Martin Angelov : https://github.com/martinaglv/KnobKnob -->
 		<script src="js/transform.js"></script>
 		<script src="js/knobKnob.jquery.js"></script>
@@ -69,9 +69,33 @@
 		<script type="text/javascript">	
 			$(function() {
 				
-				$( '#vc-container' ).cassette();
+				// Debug browser support
+				console.log('Modernizr loaded:', typeof Modernizr !== 'undefined');
+				console.log('CSS Transforms:', Modernizr.csstransforms);
+				console.log('CSS 3D Transforms:', Modernizr.csstransforms3d);
+				console.log('CSS Animations:', Modernizr.cssanimations);
+				console.log('CSS Transitions:', Modernizr.csstransitions);
+				
+				// Check if we should show the cassette player
+				if (Modernizr.csstransforms && Modernizr.csstransforms3d && Modernizr.cssanimations && Modernizr.csstransitions) {
+					console.log('Browser supports all required features, initializing cassette player...');
+					
+					// Initialize cassette player
+					try {
+						$( '#vc-container' ).cassette();
+						console.log('Cassette player initialized successfully');
+					} catch(e) {
+						console.error('Error initializing cassette player:', e);
+						// Fallback: Show basic message
+						$('#vc-container').html('<div style="text-align: center; padding: 50px; color: white;">Cassette Player Loading...</div>');
+					}
+				} else {
+					console.log('Browser does not support required features');
+					// Show the support note
+					$('.support-note').show();
+				}
 						
-				});
+			});
 		</script>
     </body>
 </html>
