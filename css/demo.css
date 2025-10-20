@@ -35,18 +35,11 @@ body::before {
 	z-index: -2;
 }
 
-/* Mobile background and styles */
+/* Mobile background */
 @media screen and (max-width: 768px) {
 	body {
 		background: #b6b6b6 url(../images/Mobile%20bg.jpg) fixed no-repeat top center;
 		background-size: cover;
-	}
-	
-	/* Ensure volume knob is visible and properly positioned on mobile */
-	.vc-volume-wrap {
-		display: block !important;
-		visibility: visible !important;
-		opacity: 1 !important;
 	}
 }
 
