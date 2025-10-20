@@ -92,6 +92,7 @@
 			// song display elements
 			this.$songTitle		= this.$el.parent().find( '.song-title' );
 			this.$songSide		= this.$el.parent().find( '.song-side' );
+			this.$nowPlaying	= this.$el.parent().find( '.now-playing-text' );
 
 			// create cassette sides
 			$.when( this._createSides() ).done( function() {
@@ -811,6 +812,11 @@
 				this.$songTitle.text( songName );
 				this.$songSide.text( sideText );
 				
+			}
+			
+			if( this.$nowPlaying ) {
+				var nowPlayingText = song ? 'now playing: ' + song.name.replace(/_/g, ' ').replace(/BlueDucks/g, 'Blue Ducks').replace(/BlankKyt/g, 'Blank Kytt') : 'now playing';
+				this.$nowPlaying.text( nowPlayingText );
 			}
 
 		}
