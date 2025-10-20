@@ -57,7 +57,7 @@
 			'Si tu vas - Fred Nevche',
 			'Kid Francescoli - Les Vitrines',
 			'L\'Impératrice - Agitations Tropicales',
-			'Mehro - Chance with you',
+			'mehro - chance with you',
 			'John Mayer - Carry Me Away'
 		],
 		fallbackMessage	: 'HTML5 audio not supported',
