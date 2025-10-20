@@ -297,36 +297,3 @@ ul.vc-controls li,
 	color: #666;
 	text-shadow: 0 1px 1px rgba(255,255,255,0.8);
 }
-
-/* Mobile styles - hide volume knob on mobile devices */
-@media screen and (max-width: 768px) {
-	.vc-volume-wrap {
-		display: none !important;
-	}
-	
-	.vc-container {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		padding: 0 20px;
-	}
-	
-	.vc-tape-wrapper {
-		width: 100%;
-		max-width: 586px;
-	}
-	
-	.vc-tape {
-		width: 100%;
-		max-width: 586px;
-		transform: scale(0.85);
-		transform-origin: center center;
-	}
-	
-	ul.vc-controls {
-		width: 100%;
-		max-width: 500px;
-		margin: 0 auto;
-		transform: scale(0.9);
-	}
-}
